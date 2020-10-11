@@ -16,15 +16,4 @@ public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
-
-    @Bean
-    public ServerCodecConfigurer serverCodecConfigurer() {
-        return ServerCodecConfigurer.create();
-    }
-
-//    @Bean
-//    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
-//        return builder.routes()
-//                .route("path_route", r -> r.path("/product/**").and().uri("http://localhost:"))
-//    }
 }
