@@ -1,0 +1,10 @@
+# Project exclude paths
+/article-service/target/
+/eureka-server/target/
+/product-service/target/
+/microservices.iml
+/product-service/product-service.iml
+/eureka-server/eureka-server.iml
+/article-service/article-service.iml
+/common/common.iml
+/.idea/
