@@ -10,7 +10,7 @@ spring:
   application:
     name: 'product-service'
   datasource:
-    url: 'jdbc:h2:mem:articles'
+    url: 'jdbc:h2:mem:products'
     driverClassName: 'org.h2.Driver'
     username: 'sa'
     password: 'pass'
