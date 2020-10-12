@@ -1,5 +1,6 @@
 package ru.disgroup.service;
 
+import org.springframework.data.domain.Sort;
 import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.dto.ProductDto;
 
@@ -9,5 +10,5 @@ public interface ProductService {
 
     ProductDto findById(Long id, Boolean fetchArticles);
 
-    List<ProductDto> findAll(ProductSpecification specification);
+    List<ProductDto> findAll(ProductSpecification specification, Sort sort);
 }

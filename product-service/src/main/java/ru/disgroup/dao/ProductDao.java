@@ -1,5 +1,6 @@
 package ru.disgroup.dao;
 
+import org.springframework.data.domain.Sort;
 import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.entity.Product;
 
@@ -9,5 +10,5 @@ public interface ProductDao {
 
     Product getById(Long id);
 
-    List<Product> findAll(ProductSpecification specification);
+    List<Product> findAll(ProductSpecification specification, Sort sort);
 }

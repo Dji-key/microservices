@@ -2,6 +2,7 @@ package ru.disgroup.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.dao.ProductDao;
@@ -42,8 +43,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAll(ProductSpecification specification) {
-        List<Product> products = productDao.findAll(specification);
+    public List<ProductDto> findAll(ProductSpecification specification, Sort sort) {
+        List<Product> products = productDao.findAll(specification, sort);
         return products.stream()
                 .map(product -> {
                     ProductDto productDto = mapper.map(product, ProductDto.class);

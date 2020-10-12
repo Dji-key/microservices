@@ -1,6 +1,7 @@
 package ru.disgroup.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,8 @@ public class ArticleController {
     }
 
     @GetMapping(ALL)
-    public List<ArticleDto> getAll(ArticleSpecification specification) {
-        return articleService.findAll(specification);
+    public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort) {
+        return articleService.findAll(specification, sort);
     }
 
     @GetMapping(BY_PRODUCT_ID)

@@ -1,6 +1,7 @@
 package ru.disgroup.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.disgroup.controller.specification.ArticleSpecification;
 import ru.disgroup.entity.Article;
@@ -18,8 +19,8 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> findAll(ArticleSpecification specification) {
-        return articleRepository.findAll(specification);
+    public List<Article> findAll(ArticleSpecification specification, Sort sort) {
+        return articleRepository.findAll(specification, sort);
     }
 
     @Override
