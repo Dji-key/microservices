@@ -11,4 +11,6 @@ public interface ArticleService {
     List<ArticleDto> findAll(ArticleSpecification specification, Sort sort);
 
     List<ArticleDto> findByProductId(Long productId, Boolean fetchProduct);
+
+    ArticleDto findById(Long id);
 }

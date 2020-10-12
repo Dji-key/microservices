@@ -15,11 +15,15 @@ public interface ArticleFeignClient {
 
     String PATH = "/article";
     String ALL = "/all";
+    String BY_ID = "/{id}";
     String BY_PRODUCT_ID = "/getByProductId/{productId}";
 
     @GetMapping(PATH + ALL)
     List<ArticleDto> getAll(ArticleSpecification specification,
                             @RequestParam(value = "sort", required = false) Sort sort);
+
+    @GetMapping(PATH + BY_ID)
+    ArticleDto getById(@PathVariable("id") Long id);
 
     @GetMapping(PATH + BY_PRODUCT_ID)
     List<ArticleDto> getByProductId(@PathVariable("productId") Long id,

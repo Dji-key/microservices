@@ -11,4 +11,6 @@ public interface ArticleDao {
     List<Article> findAll(ArticleSpecification specification, Sort sort);
 
     List<Article> findByProductId(Long productId);
+
+    Article findById(Long id);
 }

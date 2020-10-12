@@ -13,9 +13,9 @@ import ru.disgroup.service.ProductService;
 
 import java.util.List;
 
-import static ru.disgroup.feign.ProductFeignClient.PATH;
 import static ru.disgroup.feign.ProductFeignClient.ALL;
 import static ru.disgroup.feign.ProductFeignClient.BY_ID;
+import static ru.disgroup.feign.ProductFeignClient.PATH;
 
 @RestController
 @RequestMapping(PATH)

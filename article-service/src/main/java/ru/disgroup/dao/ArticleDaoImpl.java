@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.disgroup.controller.specification.ArticleSpecification;
 import ru.disgroup.entity.Article;
+import ru.disgroup.exception.ArticleNotFoundException;
 
 import java.util.List;
 
@@ -26,5 +27,10 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public List<Article> findByProductId(Long productId) {
         return articleRepository.findAllByProductId(productId);
+    }
+
+    @Override
+    public Article findById(Long id) {
+        return articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException(id));
     }
 }

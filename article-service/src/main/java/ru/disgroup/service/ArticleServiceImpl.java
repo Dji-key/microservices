@@ -58,6 +58,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articles.stream()
                 .map(article -> mapper.map(article, ArticleDto.class))
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public ArticleDto findById(Long id) {
+        Article foundArticle = articleDao.findById(id);
+        ProductDto foundProduct = productFeignClient.getById(foundArticle.getProductId(), false);
+        ArticleDto articleDto = mapper.map(foundArticle, ArticleDto.class);
+        return articleDto.setProductDto(foundProduct);
     }
 }

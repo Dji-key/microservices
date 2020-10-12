@@ -5,7 +5,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.entity.Product;
+import ru.disgroup.exception.ProductNotFoundException;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Repository
@@ -21,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product getById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Да как так? Как так то? Непорядок"));
+                .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Override

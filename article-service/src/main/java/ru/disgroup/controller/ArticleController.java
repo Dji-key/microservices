@@ -13,6 +13,7 @@ import ru.disgroup.service.ArticleService;
 
 import java.util.List;
 
+import static ru.disgroup.feign.ArticleFeignClient.BY_ID;
 import static ru.disgroup.feign.ArticleFeignClient.PATH;
 import static ru.disgroup.feign.ArticleFeignClient.ALL;
 import static ru.disgroup.feign.ArticleFeignClient.BY_PRODUCT_ID;
@@ -31,6 +32,11 @@ public class ArticleController {
     @GetMapping(ALL)
     public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort) {
         return articleService.findAll(specification, sort);
+    }
+
+    @GetMapping(PATH + BY_ID)
+    public ArticleDto getById(@PathVariable("id") Long id) {
+        return articleService.findById(id);
     }
 
     @GetMapping(BY_PRODUCT_ID)
