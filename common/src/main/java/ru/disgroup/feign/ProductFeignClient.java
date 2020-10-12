@@ -3,7 +3,9 @@ package ru.disgroup.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.disgroup.dto.ProductDto;
+import ru.disgroup.feign.specification.ProductSpecification;
 
 import java.util.List;
 
@@ -12,12 +14,12 @@ public interface ProductFeignClient {
 
     String PATH = "/product";
     String ALL = "/all";
-    String GET_BY_ID = "/getById/{id}";
-
+    String BY_ID = "/{id}";
 
     @GetMapping(PATH + ALL)
-    List<ProductDto> getAll();
+    List<ProductDto> getAll(ProductSpecification specification);
 
-    @GetMapping(PATH + GET_BY_ID)
-    ProductDto getById(@PathVariable("id") Long id);
+    @GetMapping(PATH + BY_ID)
+    ProductDto getById(@PathVariable("id") Long id,
+                       @RequestParam(value = "fetchArticles", required = false, defaultValue = "false") Boolean fetchArticles);
 }

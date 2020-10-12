@@ -3,6 +3,7 @@ package ru.disgroup.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.disgroup.controller.specification.ArticleSpecification;
 import ru.disgroup.dao.ArticleDao;
 import ru.disgroup.dto.ArticleDto;
 import ru.disgroup.dto.ProductDto;
@@ -29,32 +30,33 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findAll() {
-        return articleDao.findAll().stream()
+    public List<ArticleDto> findAll(ArticleSpecification specification) {
+        return articleDao.findAll(specification).stream()
                 .map(article -> {
                     ArticleDto articleDto = mapper.map(article, ArticleDto.class);
-                    ProductDto productDto = productFeignClient.getById(article.getProductId());
+                    ProductDto productDto = productFeignClient.getById(article.getProductId(), false);
                     return articleDto.setProductDto(productDto);
                 })
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ArticleDto> findByProductId(Long id, Boolean lazy) {
-        List<Article> articles = articleDao.findByProductId(id);
+    public List<ArticleDto> findByProductId(Long productId, Boolean fetchProduct) {
+        List<Article> articles = articleDao.findByProductId(productId);
 
-        if (lazy) {
+        if (fetchProduct) {
+            ProductDto productDto = productFeignClient.getById(productId, false);
             return articles.stream()
-                    .map(article -> mapper.map(article, ArticleDto.class))
+                    .map(article -> {
+                        ArticleDto articleDto = mapper.map(article, ArticleDto.class);
+                        return articleDto.setProductDto(productDto);
+                    })
                     .collect(Collectors.toList());
         }
 
-        ProductDto productDto = productFeignClient.getById(id);
         return articles.stream()
-                .map(article -> {
-                    ArticleDto articleDto = mapper.map(article, ArticleDto.class);
-                    return articleDto.setProductDto(productDto);
-                })
+                .map(article -> mapper.map(article, ArticleDto.class))
                 .collect(Collectors.toList());
+
     }
 }

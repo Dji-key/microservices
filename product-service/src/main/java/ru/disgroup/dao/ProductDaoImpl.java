@@ -2,6 +2,7 @@ package ru.disgroup.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.entity.Product;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Product> findAll(ProductSpecification specification) {
+        return productRepository.findAll(specification);
     }
 }

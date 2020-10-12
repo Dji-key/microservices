@@ -2,6 +2,7 @@ package ru.disgroup.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.disgroup.controller.specification.ArticleSpecification;
 import ru.disgroup.entity.Article;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> findAll() {
-        return articleRepository.findAll();
+    public List<Article> findAll(ArticleSpecification specification) {
+        return articleRepository.findAll(specification);
     }
 
     @Override
-    public List<Article> findByProductId(Long id) {
-        return articleRepository.findAllByProductId(id);
+    public List<Article> findByProductId(Long productId) {
+        return articleRepository.findAllByProductId(productId);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.disgroup.dto.ArticleDto;
+import ru.disgroup.feign.specification.ArticleSpecification;
 
 import java.util.List;
 
@@ -13,12 +14,12 @@ public interface ArticleFeignClient {
 
     String PATH = "/article";
     String ALL = "/all";
-    String ALL_BY_SPEC = "/allBySpec";
-    String GET_BY_PRODUCT_ID = "/getByProductId/{productId}";
+    String BY_PRODUCT_ID = "/getByProductId/{productId}";
 
     @GetMapping(PATH + ALL)
-    List<ArticleDto> getAll();
+    List<ArticleDto> getAll(ArticleSpecification specification);
 
-    @GetMapping(PATH + GET_BY_PRODUCT_ID)
-    List<ArticleDto> getByProductId(@PathVariable("productId") Long id, @RequestParam("lazy") Boolean lazy);
+    @GetMapping(PATH + BY_PRODUCT_ID)
+    List<ArticleDto> getByProductId(@PathVariable("productId") Long id,
+                                    @RequestParam(value = "fetchProduct", required = false, defaultValue = "false") Boolean fetchProduct);
 }

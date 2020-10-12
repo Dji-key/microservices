@@ -23,7 +23,7 @@ public class Product {
     private String description;
 
     @Column(name = "cost")
-    private Double cost;
+    private Integer cost;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Product {
         return this;
     }
 
-    public Double getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public Product setCost(Double cost) {
+    public Product setCost(Integer cost) {
         this.cost = cost;
         return this;
     }

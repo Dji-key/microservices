@@ -11,7 +11,7 @@ public class ProductDto {
 
     private String description;
 
-    private Double cost;
+    private Integer cost;
 
     private Set<ArticleDto> articles = new HashSet<>();
 
@@ -42,11 +42,11 @@ public class ProductDto {
         return this;
     }
 
-    public Double getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public ProductDto setCost(Double cost) {
+    public ProductDto setCost(Integer cost) {
         this.cost = cost;
         return this;
     }

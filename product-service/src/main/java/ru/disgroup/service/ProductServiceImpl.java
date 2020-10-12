@@ -3,6 +3,7 @@ package ru.disgroup.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.disgroup.controller.specification.ProductSpecification;
 import ru.disgroup.dao.ProductDao;
 import ru.disgroup.dto.ArticleDto;
 import ru.disgroup.dto.ProductDto;
@@ -30,18 +31,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findById(Long id) {
+    public ProductDto findById(Long id, Boolean fetchArticles) {
         Product found = productDao.getById(id);
-        return mapper.map(found, ProductDto.class);
+        ProductDto productDto = mapper.map(found, ProductDto.class);
+        if (fetchArticles) {
+            List<ArticleDto> articles = articleFeignClient.getByProductId(found.getId(), false);
+            productDto.setArticles(new HashSet<>(articles));
+        }
+        return productDto;
     }
 
     @Override
-    public List<ProductDto> findAll() {
-        List<Product> products = productDao.findAll();
+    public List<ProductDto> findAll(ProductSpecification specification) {
+        List<Product> products = productDao.findAll(specification);
         return products.stream()
                 .map(product -> {
                     ProductDto productDto = mapper.map(product, ProductDto.class);
-                    List<ArticleDto> articles = articleFeignClient.getByProductId(product.getId(), true);
+                    List<ArticleDto> articles = articleFeignClient.getByProductId(product.getId(), false);
                     return productDto.setArticles(new HashSet<>(articles));
                 })
                 .collect(Collectors.toList());
