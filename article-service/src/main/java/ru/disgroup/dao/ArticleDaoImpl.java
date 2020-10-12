@@ -20,4 +20,9 @@ public class ArticleDaoImpl implements ArticleDao {
     public List<Article> findAll() {
         return articleRepository.findAll();
     }
+
+    @Override
+    public List<Article> findByProductId(Long id) {
+        return articleRepository.findAllByProductId(id);
+    }
 }

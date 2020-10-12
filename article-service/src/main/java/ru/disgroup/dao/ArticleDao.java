@@ -7,4 +7,6 @@ import java.util.List;
 public interface ArticleDao {
 
     List<Article> findAll();
+
+    List<Article> findByProductId(Long id);
 }

@@ -9,6 +9,8 @@ import ru.disgroup.dto.ProductDto;
 import ru.disgroup.feign.ProductFeignClient;
 import ru.disgroup.service.ProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController implements ProductFeignClient {
@@ -18,6 +20,11 @@ public class ProductController implements ProductFeignClient {
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @Override
+    public List<ProductDto> getAll() {
+        return productService.findAll();
     }
 
     @Override

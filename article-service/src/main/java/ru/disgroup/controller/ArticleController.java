@@ -26,4 +26,10 @@ public class ArticleController implements ArticleFeignClient {
     public List<ArticleDto> getAll() {
         return articleService.findAll();
     }
+
+    @Override
+    @GetMapping(GET_BY_PRODUCT_ID)
+    public List<ArticleDto> getByProductId(Long id, Boolean lazy) {
+        return articleService.findByProductId(id, lazy);
+    }
 }
