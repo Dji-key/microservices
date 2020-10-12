@@ -10,5 +10,5 @@ import ru.disgroup.entity.Article;
         @Spec(path = "title", spec = LikeIgnoreCase.class),
         @Spec(path = "content", spec = LikeIgnoreCase.class)
 })
-public interface ArticleSpecificationEntity extends Specification<Article> {
+public interface ArticleSpecification extends Specification<Article> {
 }

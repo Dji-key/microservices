@@ -6,14 +6,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.disgroup.dto.ProductDto;
-import ru.disgroup.feign.ProductFeignClient;
 import ru.disgroup.service.ProductService;
 
 import java.util.List;
 
+import static ru.disgroup.feign.ProductFeignClient.ALL;
+import static ru.disgroup.feign.ProductFeignClient.GET_BY_ID;
+
 @RestController
 @RequestMapping("/product")
-public class ProductController implements ProductFeignClient {
+public class ProductController {
 
     private ProductService productService;
 
@@ -22,12 +24,11 @@ public class ProductController implements ProductFeignClient {
         this.productService = productService;
     }
 
-    @Override
+    @GetMapping(ALL)
     public List<ProductDto> getAll() {
         return productService.findAll();
     }
 
-    @Override
     @GetMapping(GET_BY_ID)
     public ProductDto getById(@PathVariable Long id) {
         return productService.findById(id);

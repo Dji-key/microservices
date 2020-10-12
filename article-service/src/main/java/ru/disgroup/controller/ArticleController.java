@@ -5,14 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.disgroup.dto.ArticleDto;
-import ru.disgroup.feign.ArticleFeignClient;
 import ru.disgroup.service.ArticleService;
 
 import java.util.List;
 
+import static ru.disgroup.feign.ArticleFeignClient.ALL;
+import static ru.disgroup.feign.ArticleFeignClient.GET_BY_PRODUCT_ID;
+
 @RestController
 @RequestMapping("/article")
-public class ArticleController implements ArticleFeignClient {
+public class ArticleController {
 
     private ArticleService articleService;
 
@@ -21,13 +23,11 @@ public class ArticleController implements ArticleFeignClient {
         this.articleService = articleService;
     }
 
-    @Override
     @GetMapping(ALL)
     public List<ArticleDto> getAll() {
         return articleService.findAll();
     }
 
-    @Override
     @GetMapping(GET_BY_PRODUCT_ID)
     public List<ArticleDto> getByProductId(Long id, Boolean lazy) {
         return articleService.findByProductId(id, lazy);
