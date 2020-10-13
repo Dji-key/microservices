@@ -9,5 +9,5 @@
 
 1. Запустить eureka-server
 2. Запустить 3 микросервиса
-3. Дождаться пока gateway "подхватит" их из eureka (секунд 30)
+3. Дождаться пока gateway "подхватит" article-service и product-service из eureka (секунд 30)
 4. Использовать.
