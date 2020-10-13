@@ -9,4 +9,6 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
 
     List<Article> findAllByProductId(Long id);
+
+    void deleteByProductId(Long productId);
 }

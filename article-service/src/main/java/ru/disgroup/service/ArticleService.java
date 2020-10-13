@@ -13,4 +13,14 @@ public interface ArticleService {
     List<ArticleDto> findByProductId(Long productId, Boolean fetchProduct);
 
     ArticleDto findById(Long id);
+
+    ArticleDto saveByProductId(Long productId, ArticleDto articleDto);
+
+    ArticleDto updateByProductId(Long productId, ArticleDto articleDto);
+
+    ArticleDto update(ArticleDto articleDto);
+
+    Long deleteById(Long id);
+
+    void deleteByProductId(Long productId);
 }

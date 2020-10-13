@@ -2,8 +2,12 @@ package ru.disgroup.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.disgroup.dto.ArticleDto;
 import ru.disgroup.feign.specification.ArticleSpecification;
@@ -14,18 +18,42 @@ import java.util.List;
 public interface ArticleFeignClient {
 
     String PATH = "/article";
-    String ALL = "/all";
-    String BY_ID = "/{id}";
-    String BY_PRODUCT_ID = "/getByProductId/{productId}";
+    String FETCH_PRODUCT = "fetchProduct";
+    String ARTICLE_ID = "id";
+    String PRODUCT_ID = "productId";
+    String GET_ALL = "/all";
+    String GET_BY_ID = "/{" + ARTICLE_ID + "}";
+    String DELETE_BY_ID = "/{" + ARTICLE_ID + "}";
+    String GET_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID +"}";
+    String ADD_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID + "}";
+    String UPDATE_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID + "}";
+    String DELETE_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID + "}";
 
-    @GetMapping(PATH + ALL)
+    @GetMapping(PATH + GET_ALL)
     List<ArticleDto> getAll(ArticleSpecification specification,
                             @RequestParam(value = "sort", required = false) Sort sort);
 
-    @GetMapping(PATH + BY_ID)
-    ArticleDto getById(@PathVariable("id") Long id);
+    @GetMapping(PATH + GET_BY_ID)
+    ArticleDto getById(@PathVariable(ARTICLE_ID) Long id);
 
-    @GetMapping(PATH + BY_PRODUCT_ID)
-    List<ArticleDto> getByProductId(@PathVariable("productId") Long id,
-                                    @RequestParam(value = "fetchProduct", required = false, defaultValue = "false") Boolean fetchProduct);
+    @PutMapping(PATH)
+    ArticleDto updateById(@RequestBody ArticleDto articleDto);
+
+    @DeleteMapping(PATH + DELETE_BY_ID)
+    Long deleteById(@PathVariable(ARTICLE_ID) Long id);
+
+    @GetMapping(PATH + GET_BY_PRODUCT_ID)
+    List<ArticleDto> getByProductId(@PathVariable(PRODUCT_ID) Long id,
+                                    @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct);
+
+    @PostMapping(PATH + ADD_BY_PRODUCT_ID)
+    ArticleDto addByProductId(@PathVariable(PRODUCT_ID) Long productId,
+                              @RequestBody ArticleDto articleDto);
+
+    @PutMapping(PATH + UPDATE_BY_PRODUCT_ID)
+    ArticleDto updateByProductId(@PathVariable(PRODUCT_ID) Long productId,
+                                 @RequestBody ArticleDto articleDto);
+
+    @DeleteMapping(PATH + DELETE_BY_PRODUCT_ID)
+    void deleteByProductId(@PathVariable(PRODUCT_ID) Long productId);
 }

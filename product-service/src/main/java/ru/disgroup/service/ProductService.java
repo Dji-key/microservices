@@ -11,4 +11,10 @@ public interface ProductService {
     ProductDto findById(Long id, Boolean fetchArticles);
 
     List<ProductDto> findAll(ProductSpecification specification, Sort sort);
+
+    ProductDto save(ProductDto productDto);
+
+    ProductDto update(ProductDto productDto);
+
+    Long deleteById(Long id);
 }

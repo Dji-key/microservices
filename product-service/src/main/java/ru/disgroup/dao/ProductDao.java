@@ -11,4 +11,10 @@ public interface ProductDao {
     Product getById(Long id);
 
     List<Product> findAll(ProductSpecification specification, Sort sort);
+
+    Product save(Product product);
+
+    Product update(Product product);
+
+    Long deleteById(Long id);
 }

@@ -13,4 +13,12 @@ public interface ArticleDao {
     List<Article> findByProductId(Long productId);
 
     Article findById(Long id);
+
+    Article save(Article article);
+
+    Article update(Article article);
+
+    Long deleteById(Long id);
+
+    void deleteByProductId(Long productId);
 }

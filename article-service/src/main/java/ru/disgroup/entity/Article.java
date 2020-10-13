@@ -27,8 +27,8 @@ public class Article {
     @Column(name = "content")
     private String content;
 
-    @CreationTimestamp
-    @Column(name = "creation_date")
+    @CreationTimestamp()
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private Date creationDate;
 
     @Column(name = "product_id")
