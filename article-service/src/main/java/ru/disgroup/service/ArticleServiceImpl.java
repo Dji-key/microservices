@@ -12,7 +12,9 @@ import ru.disgroup.dto.ProductDto;
 import ru.disgroup.entity.Article;
 import ru.disgroup.feign.ProductFeignClient;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,11 +35,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll(ArticleSpecification specification, Sort sort) {
+        Map<Long, ProductDto> productsDtoToSet = new HashMap<>();
         return articleDao.findAll(specification, sort).stream()
                 .map(article -> {
                     ArticleDto articleDto = mapper.map(article, ArticleDto.class);
-                    ProductDto productDto = productFeignClient.getById(article.getProductId(), false);
-                    return articleDto.setProductDto(productDto);
+                    ProductDto respectiveProductDto = productsDtoToSet.computeIfAbsent(article.getProductId(),
+                            (productId) -> {
+                                ProductDto foundProductDto = productFeignClient.getById(productId, false);
+                                productsDtoToSet.put(productId, foundProductDto);
+                                return foundProductDto;
+                            });
+                    return articleDto.setProductDto(respectiveProductDto);
                 })
                 .collect(Collectors.toList());
     }
