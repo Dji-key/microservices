@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
-import AllProducts from "@/component/product/AllProducts.vue";
+import Products from "@/component/product/Products.vue";
 import ProductDetails from "@/component/product/ProductDetails.vue";
-import AllArticles from "@/component/article/AllArticles.vue";
+import Articles from "@/component/article/Articles.vue";
 import ArticleDetails from "@/component/article/ArticleDetails.vue";
 
 Vue.use(VueRouter);
@@ -11,7 +11,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/products',
     name: 'Products',
-    component: AllProducts
+    component: Products
   },
   {
     path: '/product/:productId',
@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/articles',
     name: 'Articles',
-    component: AllArticles
+    component: Articles
   },
   {
     path: '/article/:articleId',

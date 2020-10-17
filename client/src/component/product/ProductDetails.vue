@@ -9,6 +9,8 @@
 
             <dt><span>Цена</span></dt>
             <dd>{{product.cost}}</dd>
+
+            <articles v-if="productId" :product-id="productId"></articles>
         </dl>
     </div>
 </template>
@@ -17,8 +19,13 @@
     import {Component, Inject, Prop, Vue} from "vue-property-decorator";
     import {IProduct} from "@/model/Product";
     import ProductService from "@/service/ProductService";
+    import Articles from "@/component/article/Articles.vue";
 
-    @Component
+    @Component({
+        components: {
+            'articles': Articles
+        }
+    })
     export default class ProductDetails extends Vue {
 
         @Inject('productService')
@@ -30,10 +37,10 @@
         public product: IProduct = {};
         private isFetching: boolean = false;
 
-        public mounted(): void {
+        public created(): void {
             this.isFetching = true;
             this.productService()
-                .find(this.productId)
+                .find(this.productId, false)
             .then(
                 res => {
                     this.product = res;

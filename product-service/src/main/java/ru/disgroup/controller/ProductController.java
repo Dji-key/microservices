@@ -43,7 +43,7 @@ public class ProductController {
 
     @GetMapping(GET_BY_ID)
     public ProductDto getById(@PathVariable(PRODUCT_ID) Long id,
-                              @RequestParam(value = FETCH_ARTICLES, required = false, defaultValue = "true") Boolean fetchArticles) {
+                              @RequestParam(value = FETCH_ARTICLES, required = false, defaultValue = "false") Boolean fetchArticles) {
         return productService.findById(id, fetchArticles);
     }
 

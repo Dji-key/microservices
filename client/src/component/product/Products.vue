@@ -36,7 +36,7 @@
     import ProductService from "@/service/ProductService";
 
     @Component
-    export default class AllProducts extends Vue {
+    export default class Products extends Vue {
 
         @Inject('productService')
         private productService!: () => ProductService;
@@ -47,7 +47,7 @@
         public mounted(): void {
             this.isFetching = true;
             this.productService()
-                .retrieve()
+                .retrieve(true)
                 .then(
                     res => {
                         this.products = res.data;

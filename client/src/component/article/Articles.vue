@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>Все статьи</h1>
+        <h1 v-if="!productId">Все статьи</h1>
+        <h1 v-else>Статьи продукта</h1>
         <div v-if="!isFetching && articles">
             <table>
                 <thead>
@@ -8,7 +9,7 @@
                     <th>Название</th>
                     <th>Содержимое</th>
                     <th>Дата создания</th>
-                    <th>Продукт</th>
+                    <th v-if="!productId">Продукт</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -18,7 +19,7 @@
                     </td>
                     <td>{{article.content}}</td>
                     <td>{{article.creationDate}}</td>
-                    <td>
+                    <td v-if="!productId">
                         <router-link :to="{name: 'ProductDetails', params: {productId: article.product.id}}">{{article.product.title}}</router-link>
                     </td>
                 </tr>
@@ -29,32 +30,43 @@
 </template>
 
 <script lang="ts">
-    import {Component, Inject, Vue} from "vue-property-decorator";
+    import {Component, Inject, Prop, Vue} from "vue-property-decorator";
     import {IArticle} from "@/model/Article";
     import ArticleService from "@/service/ArticleService";
 
     @Component
-    export default class AllArticles extends Vue {
+    export default class Articles extends Vue {
 
         @Inject('articleService')
         private articleService!: () => ArticleService;
+
+        @Prop()
+        private productId?: number;
 
         public articles: IArticle[] = [];
         private isFetching: boolean = false;
 
         public mounted(): void {
             this.isFetching = true;
-            this.articleService()
-                .retrieve(true)
+            if (this.productId) {
+                this.articleService()
+                .findByProductId(this.productId, false)
                 .then(
                     res => {
                         this.articles = res.data;
-                        this.isFetching = false;
-                    },
-                    err => {
-                        this.isFetching = false;
                     }
                 )
+            } else {
+                this.articleService()
+                    .retrieve(true)
+                    .then(
+                        res => {
+                            this.articles = res.data;
+                            this.isFetching = false;
+                        }
+                    )
+            }
+            this.isFetching = false;
         }
     }
 </script>

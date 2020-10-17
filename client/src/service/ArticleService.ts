@@ -15,7 +15,7 @@ export default class ArticleService {
 
     public find(id: number, fetchProduct?: boolean): Promise<IArticle> {
         return new Promise<IArticle>(resolve => {
-            axios.get(`${articleUrl}/${id}$`).then(function(res) {
+            axios.get(`${articleUrl}/${id}${fetchProduct ? `?fetchProduct=${fetchProduct}`: ''}`).then(function(res) {
                 resolve(res.data);
             });
         });
@@ -23,7 +23,7 @@ export default class ArticleService {
 
     public findByProductId(productId: number, fetchProduct?: boolean): Promise<any> {
         return new Promise<any>(resolve => {
-            axios.get(`${articleUrl}/byProductId/${productId}?fetchProduct=false`).then(function(res) {
+            axios.get(`${articleUrl}/byProductId/${productId}${fetchProduct ? `?fetchProduct=${fetchProduct}`: ''}`).then(function(res) {
                 resolve(res);
             });
         });
