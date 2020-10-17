@@ -36,13 +36,15 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort) {
-        return articleService.findAll(specification, sort);
+    public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort,
+                                   @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct) {
+        return articleService.findAll(specification, sort, fetchProduct);
     }
 
     @GetMapping(GET_BY_ID)
-    public ArticleDto getById(@PathVariable(ARTICLE_ID) Long id) {
-        return articleService.findById(id);
+    public ArticleDto getById(@PathVariable(ARTICLE_ID) Long id,
+                              @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct) {
+        return articleService.findById(id, fetchProduct);
     }
 
     @PutMapping

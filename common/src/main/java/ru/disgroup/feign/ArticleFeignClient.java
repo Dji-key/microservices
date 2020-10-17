@@ -33,7 +33,8 @@ public interface ArticleFeignClient {
                             @RequestParam(value = "sort", required = false) Sort sort);
 
     @GetMapping(PATH + GET_BY_ID)
-    ArticleDto getById(@PathVariable(ARTICLE_ID) Long id);
+    ArticleDto getById(@PathVariable(ARTICLE_ID) Long id,
+                       @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct);
 
     @PutMapping(PATH)
     ArticleDto updateById(@RequestBody ArticleDto articleDto);

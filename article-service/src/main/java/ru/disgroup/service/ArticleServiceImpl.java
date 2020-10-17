@@ -34,18 +34,21 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findAll(ArticleSpecification specification, Sort sort) {
+    public List<ArticleDto> findAll(ArticleSpecification specification, Sort sort, Boolean fetchProduct) {
         Map<Long, ProductDto> productsDtoToSet = new HashMap<>();
         return articleDao.findAll(specification, sort).stream()
                 .map(article -> {
                     ArticleDto articleDto = mapper.map(article, ArticleDto.class);
-                    ProductDto respectiveProductDto = productsDtoToSet.computeIfAbsent(article.getProductId(),
-                            (productId) -> {
-                                ProductDto foundProductDto = productFeignClient.getById(productId, false);
-                                productsDtoToSet.put(productId, foundProductDto);
-                                return foundProductDto;
-                            });
-                    return articleDto.setProduct(respectiveProductDto);
+                    if (fetchProduct) {
+                        ProductDto respectiveProductDto = productsDtoToSet.computeIfAbsent(article.getProductId(),
+                                (productId) -> {
+                                    ProductDto foundProductDto = productFeignClient.getById(productId, false);
+                                    productsDtoToSet.put(productId, foundProductDto);
+                                    return foundProductDto;
+                                });
+                        articleDto.setProduct(respectiveProductDto);
+                    }
+                    return articleDto;
                 })
                 .collect(Collectors.toList());
     }
@@ -70,11 +73,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto findById(Long id) {
+    public ArticleDto findById(Long id, Boolean fetchProduct) {
         Article foundArticle = articleDao.findById(id);
-        ProductDto foundProductDto = productFeignClient.getById(foundArticle.getProductId(), false);
         ArticleDto resultArticleDto = mapper.map(foundArticle, ArticleDto.class);
-        return resultArticleDto.setProduct(foundProductDto);
+        if (fetchProduct) {
+            ProductDto foundProductDto = productFeignClient.getById(foundArticle.getProductId(), false);
+            resultArticleDto.setProduct(foundProductDto);
+        }
+        return resultArticleDto;
     }
 
     @Override

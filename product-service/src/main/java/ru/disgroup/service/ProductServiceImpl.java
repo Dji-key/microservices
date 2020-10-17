@@ -44,13 +44,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAll(ProductSpecification specification, Sort sort) {
+    public List<ProductDto> findAll(ProductSpecification specification, Sort sort, Boolean fetchArticles) {
         List<Product> foundProducts = productDao.findAll(specification, sort);
         return foundProducts.stream()
                 .map(product -> {
                     ProductDto productDto = mapper.map(product, ProductDto.class);
-                    List<ArticleDto> foundArticlesDto = articleFeignClient.getByProductId(product.getId(), false);
-                    return productDto.setArticles(new HashSet<>(foundArticlesDto));
+                    if (fetchArticles) {
+                        List<ArticleDto> foundArticlesDto = articleFeignClient.getByProductId(product.getId(), false);
+                        productDto.setArticles(new HashSet<>(foundArticlesDto));
+                    }
+                    return productDto;
                 })
                 .collect(Collectors.toList());
     }

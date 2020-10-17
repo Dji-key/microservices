@@ -25,6 +25,7 @@ public interface ProductFeignClient {
 
     @GetMapping(PATH)
     List<ProductDto> getAll(ProductSpecification specification,
+                            @RequestParam(value = FETCH_ARTICLES, required = false, defaultValue = "true") Boolean fetchArticles,
                             @RequestParam(value = "sort", required = false) Sort sort);
 
     @GetMapping(PATH + GET_BY_ID)

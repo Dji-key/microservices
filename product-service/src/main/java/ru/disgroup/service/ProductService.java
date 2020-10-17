@@ -10,7 +10,7 @@ public interface ProductService {
 
     ProductDto findById(Long id, Boolean fetchArticles);
 
-    List<ProductDto> findAll(ProductSpecification specification, Sort sort);
+    List<ProductDto> findAll(ProductSpecification specification, Sort sort, Boolean fetchArticles);
 
     ProductDto save(ProductDto productDto);
 

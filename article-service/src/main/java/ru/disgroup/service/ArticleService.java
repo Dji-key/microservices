@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleDto> findAll(ArticleSpecification specification, Sort sort);
+    List<ArticleDto> findAll(ArticleSpecification specification, Sort sort, Boolean fetchProduct);
 
     List<ArticleDto> findByProductId(Long productId, Boolean fetchProduct);
 
-    ArticleDto findById(Long id);
+    ArticleDto findById(Long id, Boolean fetchProduct);
 
     ArticleDto saveByProductId(Long productId, ArticleDto articleDto);
 

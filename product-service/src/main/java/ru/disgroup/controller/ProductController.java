@@ -36,8 +36,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductDto> getAll(ProductSpecification specification, Sort sort) {
-        return productService.findAll(specification, sort);
+    public List<ProductDto> getAll(ProductSpecification specification, Sort sort,
+                                   @RequestParam(value = FETCH_ARTICLES, required = false, defaultValue = "true") Boolean fetchArticles) {
+        return productService.findAll(specification, sort, fetchArticles);
     }
 
     @GetMapping(GET_BY_ID)
