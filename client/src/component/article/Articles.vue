@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="table">
         <h1 v-if="!productId">Все статьи</h1>
         <h1 v-else>Статьи продукта</h1>
         <div v-if="!isFetching && articles">
@@ -10,6 +10,8 @@
                     <th>Содержимое</th>
                     <th>Дата создания</th>
                     <th v-if="!productId">Продукт</th>
+                    <th/>
+                    <th/>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,6 +23,12 @@
                     <td>{{article.creationDate}}</td>
                     <td v-if="!productId">
                         <router-link :to="{name: 'ProductDetails', params: {productId: article.product.id}}">{{article.product.title}}</router-link>
+                    </td>
+                    <td>
+                        <router-link :to="{name: 'ArticleUpdate', params: {articleId: article.id}}">Редактировать</router-link>
+                    </td>
+                    <td>
+                        Удалить
                     </td>
                 </tr>
                 </tbody>
@@ -70,3 +78,13 @@
         }
     }
 </script>
+
+<style>
+    #table {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+    }
+</style>

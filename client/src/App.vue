@@ -4,7 +4,9 @@
       <router-link to="/products">Products</router-link> |
       <router-link to="/articles">Articles</router-link>
     </div>
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
