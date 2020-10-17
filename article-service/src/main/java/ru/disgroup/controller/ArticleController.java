@@ -36,14 +36,15 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort,
-                                   @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct) {
+    public List<ArticleDto> getAll(ArticleSpecification specification,
+                                   Sort sort,
+                                   @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct) {
         return articleService.findAll(specification, sort, fetchProduct);
     }
 
     @GetMapping(GET_BY_ID)
     public ArticleDto getById(@PathVariable(ARTICLE_ID) Long id,
-                              @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct) {
+                              @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct) {
         return articleService.findById(id, fetchProduct);
     }
 
@@ -59,7 +60,7 @@ public class ArticleController {
 
     @GetMapping(GET_BY_PRODUCT_ID)
     public List<ArticleDto> getByProductId(@PathVariable(PRODUCT_ID) Long productId,
-                                           @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct) {
+                                           @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct) {
         return articleService.findByProductId(productId, fetchProduct);
     }
 

@@ -30,11 +30,12 @@ public interface ArticleFeignClient {
 
     @GetMapping(PATH)
     List<ArticleDto> getAll(ArticleSpecification specification,
-                            @RequestParam(value = "sort", required = false) Sort sort);
+                            @RequestParam(value = "sort", required = false) Sort sort,
+                            @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct);
 
     @GetMapping(PATH + GET_BY_ID)
     ArticleDto getById(@PathVariable(ARTICLE_ID) Long id,
-                       @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct);
+                       @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct);
 
     @PutMapping(PATH)
     ArticleDto updateById(@RequestBody ArticleDto articleDto);
@@ -44,7 +45,7 @@ public interface ArticleFeignClient {
 
     @GetMapping(PATH + GET_BY_PRODUCT_ID)
     List<ArticleDto> getByProductId(@PathVariable(PRODUCT_ID) Long id,
-                                    @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "true") Boolean fetchProduct);
+                                    @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct);
 
     @PostMapping(PATH + ADD_BY_PRODUCT_ID)
     ArticleDto addByProductId(@PathVariable(PRODUCT_ID) Long productId,

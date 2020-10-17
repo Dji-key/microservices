@@ -45,7 +45,7 @@
         public mounted(): void {
             this.isFetching = true;
             this.articleService()
-                .retrieve()
+                .retrieve(true)
                 .then(
                     res => {
                         this.articles = res.data;
