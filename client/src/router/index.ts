@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
-import AllProducts from "@/components/product/all-products.vue";
-import AllArticles from "@/components/article/all-articles.vue";
+import AllProducts from "@/component/product/AllProducts.vue";
+import AllArticles from "@/component/article/AllArticles.vue";
 
 Vue.use(VueRouter)
 

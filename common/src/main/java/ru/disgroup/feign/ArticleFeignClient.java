@@ -21,7 +21,6 @@ public interface ArticleFeignClient {
     String FETCH_PRODUCT = "fetchProduct";
     String ARTICLE_ID = "id";
     String PRODUCT_ID = "productId";
-    String GET_ALL = "/all";
     String GET_BY_ID = "/{" + ARTICLE_ID + "}";
     String DELETE_BY_ID = "/{" + ARTICLE_ID + "}";
     String GET_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID +"}";
@@ -29,7 +28,7 @@ public interface ArticleFeignClient {
     String UPDATE_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID + "}";
     String DELETE_BY_PRODUCT_ID = "/byProductId/{" + PRODUCT_ID + "}";
 
-    @GetMapping(PATH + GET_ALL)
+    @GetMapping(PATH)
     List<ArticleDto> getAll(ArticleSpecification specification,
                             @RequestParam(value = "sort", required = false) Sort sort);
 

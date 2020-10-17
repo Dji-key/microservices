@@ -20,11 +20,10 @@ public interface ProductFeignClient {
     String PATH = "/product";
     String FETCH_ARTICLES = "fetchArticles";
     String PRODUCT_ID = "id";
-    String GET_ALL = "/all";
     String GET_BY_ID = "/{" + PRODUCT_ID + "}";
     String DELETE_BY_ID = "/{" + PRODUCT_ID + "}";
 
-    @GetMapping(PATH + GET_ALL)
+    @GetMapping(PATH)
     List<ProductDto> getAll(ProductSpecification specification,
                             @RequestParam(value = "sort", required = false) Sort sort);
 

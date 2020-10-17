@@ -1,4 +1,6 @@
-interface IProduct {
+import {IArticle} from "@/model/Article";
+
+export interface IProduct {
     id?: number;
     title?: string;
     description?: string;
@@ -6,4 +8,12 @@ interface IProduct {
     articles?: IArticle[];
 }
 
-class Product implements IProduct {}
+export class Product implements IProduct {
+    constructor(
+        public id?: number,
+        public title?: string,
+        public description?: string,
+        public cost?: number,
+        public articles?: IArticle[]
+    ) {}
+}

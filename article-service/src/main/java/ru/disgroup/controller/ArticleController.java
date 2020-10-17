@@ -2,6 +2,7 @@ package ru.disgroup.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import static ru.disgroup.feign.ArticleFeignClient.*;
  */
 @RestController
 @RequestMapping(PATH)
+@CrossOrigin(origins = "http://localhost:8084")
 public class ArticleController {
 
     private ArticleService articleService;
@@ -33,7 +35,7 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @GetMapping(GET_ALL)
+    @GetMapping
     public List<ArticleDto> getAll(ArticleSpecification specification, Sort sort) {
         return articleService.findAll(specification, sort);
     }

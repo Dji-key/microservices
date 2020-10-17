@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>ARTICLES</h1>
+        <h1>PRODUCTS</h1>
     </div>
 </template>
 
@@ -8,7 +8,6 @@
     import {Component, Vue} from "vue-property-decorator";
 
     @Component
-    export default class AllArticles extends Vue {
-
+    export default class AllProducts extends Vue {
     }
 </script>
