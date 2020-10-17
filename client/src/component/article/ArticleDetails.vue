@@ -7,12 +7,12 @@
     import {Component, Inject, Prop, Vue} from "vue-property-decorator";
     import {IArticle} from "@/model/Article";
     import ArticleService from "@/service/ArticleService";
-    import {Route} from "vue-router";
 
     @Component
     export default class ArticleDetails extends Vue {
 
-        @Inject('articleService') private articleService!: () => ArticleService;
+        @Inject('articleService')
+        private articleService!: () => ArticleService;
 
         @Prop()
         private articleId!: number;

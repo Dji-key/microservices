@@ -5,7 +5,7 @@ const articleUrl = 'http://localhost:8081/article';
 
 export default class ArticleService {
 
-    public retrieve(paginationQuery?: any): Promise<any> {
+    public retrieve(fetchProduct?: boolean): Promise<any> {
         return new Promise<any>(resolve => {
             axios.get(articleUrl).then(function(res) {
                 resolve(res);
@@ -13,10 +13,18 @@ export default class ArticleService {
         });
     }
 
-    public find(id: number): Promise<IArticle> {
+    public find(id: number, fetchProduct?: boolean): Promise<IArticle> {
         return new Promise<IArticle>(resolve => {
             axios.get(`${articleUrl}/${id}`).then(function(res) {
                 resolve(res.data);
+            });
+        });
+    }
+
+    public findByProductId(productId: number, fetchProduct?: boolean): Promise<any> {
+        return new Promise<any>(resolve => {
+            axios.get(`${articleUrl}/byProductId/${productId}?fetchProduct=false`).then(function(res) {
+                resolve(res);
             });
         });
     }

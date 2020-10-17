@@ -28,9 +28,9 @@ public class ProductApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void addFakeData() {
         List<Product> data = new ArrayList<>();
-        data.add(new Product().setTitle("First").setDescription("Product with 3 articles"));
-        data.add(new Product().setTitle("Second").setDescription("Product with 2 articles"));
-        data.add(new Product().setTitle("Third").setDescription("Product with 1 article"));
+        data.add(new Product().setTitle("First").setDescription("Product with 3 articles").setCost(100));
+        data.add(new Product().setTitle("Second").setDescription("Product with 2 articles").setCost(500));
+        data.add(new Product().setTitle("Third").setDescription("Product with 1 article").setCost(100500));
         productRepository.saveAll(data);
     }
 }

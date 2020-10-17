@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!isFetching && product">
         <dl>
             <dt><span>Название</span></dt>
             <dd>{{product.title}}</dd>
@@ -17,12 +17,12 @@
     import {Component, Inject, Prop, Vue} from "vue-property-decorator";
     import {IProduct} from "@/model/Product";
     import ProductService from "@/service/ProductService";
-    import {Route} from "vue-router";
 
     @Component
     export default class ProductDetails extends Vue {
 
-        @Inject('productService') private productService!: () => ProductService;
+        @Inject('productService')
+        private productService!: () => ProductService;
 
         @Prop()
         private productId!: number;

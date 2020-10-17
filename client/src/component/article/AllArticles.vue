@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>ARTICLES</h1>
+        <h1>Все статьи</h1>
         <div v-if="!isFetching && articles">
             <table>
                 <thead>
@@ -36,7 +36,8 @@
     @Component
     export default class AllArticles extends Vue {
 
-        @Inject('articleService') private articleService!: () => ArticleService;
+        @Inject('articleService')
+        private articleService!: () => ArticleService;
 
         public articles: IArticle[] = [];
         private isFetching: boolean = false;
