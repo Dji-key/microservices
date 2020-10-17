@@ -3,6 +3,26 @@
         <h1>ARTICLES</h1>
         <div v-if="!isFetching && articles">
             <table>
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Содержимое</th>
+                    <th>Дата создания</th>
+                    <th>Продукт</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="article in articles">
+                    <td>
+                        <router-link :to="{name: 'ArticleDetails', params: {articleId: article.id}}">{{article.title}}</router-link>
+                    </td>
+                    <td>{{article.content}}</td>
+                    <td>{{article.creationDate}}</td>
+                    <td>
+                        <router-link :to="{name: 'ProductDetails', params: {productId: article.product.id}}">{{article.product.title}}</router-link>
+                    </td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>

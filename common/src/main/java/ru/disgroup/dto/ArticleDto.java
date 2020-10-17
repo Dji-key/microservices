@@ -12,7 +12,7 @@ public class ArticleDto {
 
     private Date creationDate;
 
-    private ProductDto productDto;
+    private ProductDto product;
 
     public Long getId() {
         return id;
@@ -50,12 +50,12 @@ public class ArticleDto {
         return this;
     }
 
-    public ProductDto getProductDto() {
-        return productDto;
+    public ProductDto getProduct() {
+        return product;
     }
 
-    public ArticleDto setProductDto(ProductDto productDto) {
-        this.productDto = productDto;
+    public ArticleDto setProduct(ProductDto product) {
+        this.product = product;
         return this;
     }
 }

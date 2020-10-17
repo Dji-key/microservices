@@ -45,7 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
                                 productsDtoToSet.put(productId, foundProductDto);
                                 return foundProductDto;
                             });
-                    return articleDto.setProductDto(respectiveProductDto);
+                    return articleDto.setProduct(respectiveProductDto);
                 })
                 .collect(Collectors.toList());
     }
@@ -59,7 +59,7 @@ public class ArticleServiceImpl implements ArticleService {
             return foundArticles.stream()
                     .map(article -> {
                         ArticleDto articleDto = mapper.map(article, ArticleDto.class);
-                        return articleDto.setProductDto(productDto);
+                        return articleDto.setProduct(productDto);
                     })
                     .collect(Collectors.toList());
         }
@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article foundArticle = articleDao.findById(id);
         ProductDto foundProductDto = productFeignClient.getById(foundArticle.getProductId(), false);
         ArticleDto resultArticleDto = mapper.map(foundArticle, ArticleDto.class);
-        return resultArticleDto.setProductDto(foundProductDto);
+        return resultArticleDto.setProduct(foundProductDto);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article articleToSave = mapper.map(articleDto, Article.class);
         Article savedArticle = articleDao.save(articleToSave.setProductId(foundProductDto.getId()));
         ArticleDto savedArticleDto = mapper.map(savedArticle, ArticleDto.class);
-        return savedArticleDto.setProductDto(foundProductDto);
+        return savedArticleDto.setProduct(foundProductDto);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article articleToUpdate = mapper.map(articleDto, Article.class);
         Article updatedArticle = articleDao.update(articleToUpdate.setProductId(foundProductDto.getId()));
         ArticleDto updatedArticleDto = mapper.map(updatedArticle, ArticleDto.class);
-        return updatedArticleDto.setProductDto(foundProductDto);
+        return updatedArticleDto.setProduct(foundProductDto);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article updatedArticle = articleDao.update(articleToUpdate);
         ProductDto foundProductDto = productFeignClient.getById(updatedArticle.getProductId(), false);
         ArticleDto updatedArticleDto = mapper.map(updatedArticle, ArticleDto.class);
-        return updatedArticleDto.setProductDto(foundProductDto);
+        return updatedArticleDto.setProduct(foundProductDto);
     }
 
     @Override
