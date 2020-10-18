@@ -35,7 +35,7 @@
         public article: IArticle = {};
         private isFetching: boolean = false;
 
-        public mounted(): void {
+        public created(): void {
             this.isFetching = true;
             this.articleService()
                 .find(this.articleId, true)

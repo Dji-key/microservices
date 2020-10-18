@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Все продукты</h1>
+        <router-link :to="{name: 'ProductCreate'}">Создать продукт</router-link>
         <div v-if="!isFetching && products">
             <table>
                 <thead>
@@ -9,6 +10,8 @@
                     <th>Описание</th>
                     <th>Цена</th>
                     <th>Статьи</th>
+                    <th/>
+                    <th/>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,6 +30,12 @@
                         <div v-else>
                             Отсутствуют
                         </div>
+                    </td>
+                    <td>
+                        <router-link :to="{name: 'ProductUpdate', params: {productId: product.id}}">Редактировать</router-link>
+                    </td>
+                    <td>
+                        <button @click="remove(product.id)">Удалить</button>
                     </td>
                 </tr>
                 </tbody>
@@ -49,17 +58,28 @@
         public products: IProduct[] = [];
         private isFetching: boolean = false;
 
-        public mounted(): void {
+        public created(): void {
+            this.retrieveAll();
+        }
+
+        private retrieveAll(): void {
             this.isFetching = true;
             this.productService()
                 .retrieve(true)
                 .then(
                     res => {
                         this.products = res.data;
-                        this.isFetching = false;
-                    },
-                    err => {
-                        this.isFetching = false;
+                    }
+                );
+            this.isFetching = false;
+        }
+
+        public remove(id: number): void {
+            this.productService()
+                .delete(id)
+                .then(
+                    res => {
+                        this.retrieveAll()
                     }
                 )
         }

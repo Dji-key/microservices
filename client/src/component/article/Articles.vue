@@ -2,7 +2,8 @@
     <div class="table">
         <h1 v-if="!productId">Все статьи</h1>
         <h1 v-else>Статьи продукта</h1>
-        <router-link :to="{name: 'ArticleCreate'}">Создать статью</router-link>
+        <router-link v-if="!productId" :to="{name: 'ArticleCreate'}">Создать статью</router-link>
+        <router-link v-else :to="{name: 'ArticleCreate', params: {productId}}">Добавить статью</router-link>
         <div v-if="!isFetching && articles">
             <table>
                 <thead>

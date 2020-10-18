@@ -41,15 +41,12 @@
             this.isFetching = true;
             this.productService()
                 .find(this.productId, false)
-            .then(
-                res => {
-                    this.product = res;
-                    this.isFetching = false;
-                },
-                err => {
-                    this.isFetching = false;
-                }
-            )
+                .then(
+                    res => {
+                        this.product = res;
+                    }
+                );
+            this.isFetching = false;
         }
     }
 </script>

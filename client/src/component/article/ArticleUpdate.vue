@@ -1,5 +1,5 @@
 <template>
-    <div v-if="article">
+    <div v-if="!isFetching">
         <div>
             <label>Название</label>
             <input type="text" v-model="article.title">
@@ -10,7 +10,7 @@
             <textarea v-model="article.content"></textarea>
         </div>
 
-        <div>
+        <div v-if="!productId">
             <label>Продукт</label>
             <select v-model="article.product">
                 <option v-if="article.product" :value="null" selected></option>
@@ -29,7 +29,7 @@
     import {IProduct} from "@/model/Product";
 
     @Component
-    export default class ArticleDetails extends Vue {
+    export default class ArticleUpdate extends Vue {
 
         @Inject('articleService')
         private articleService!: () => ArticleService;
@@ -40,12 +40,15 @@
         @Prop()
         private articleId?: number;
 
+        @Prop()
+        private productId?: number;
+
         public article: IArticle = {};
         public products: IProduct[] = [];
-        private isFetching: boolean = false;
-        private isSaving: boolean = false;
+        public isFetching: boolean = false;
+        public isSaving: boolean = false;
 
-        public mounted(): void {
+        public created(): void {
             this.isFetching = true;
             if (this.articleId) {
                 this.articleService()
@@ -53,17 +56,26 @@
                     .then(
                         res => {
                             this.article = res;
-                            this.isFetching = false;
                         }
                     )
             }
-            this.productService()
-                .retrieve(false)
-            .then(
-                res => {
-                    this.products = res.data;
-                }
-            );
+            if (this.productId) {
+                this.productService()
+                    .find(this.productId, false)
+                    .then(
+                        res => {
+                            this.article.product = res;
+                        }
+                    )
+            } else {
+                this.productService()
+                    .retrieve(false)
+                    .then(
+                        res => {
+                            this.products = res.data;
+                        }
+                    );
+            }
             this.isFetching = false
         }
 
