@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1>Все продукты</h1>
+    <div class="table">
+        <h3>Все продукты</h3>
         <router-link :to="{name: 'ProductCreate'}">Создать продукт</router-link>
-        <div v-if="!isFetching && products">
+        <div v-if="!isFetching && products.length !== 0">
             <table>
                 <thead>
                 <tr>
@@ -32,10 +32,10 @@
                         </div>
                     </td>
                     <td>
-                        <router-link :to="{name: 'ProductUpdate', params: {productId: product.id}}">Редактировать</router-link>
+                        <router-link tag="button" :to="{name: 'ProductUpdate', params: {productId: product.id}}">Редактировать</router-link>
                     </td>
                     <td>
-                        <button @click="remove(product.id)">Удалить</button>
+                        <button class="button" @click="remove(product.id)">Удалить</button>
                     </td>
                 </tr>
                 </tbody>

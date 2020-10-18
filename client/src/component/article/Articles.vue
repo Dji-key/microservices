@@ -1,15 +1,14 @@
 <template>
     <div class="table">
-        <h1 v-if="!productId">Все статьи</h1>
-        <h1 v-else>Статьи продукта</h1>
+        <h3 v-if="!productId">Все статьи</h3>
+        <h3 v-else>Статьи продукта</h3>
         <router-link v-if="!productId" :to="{name: 'ArticleCreate'}">Создать статью</router-link>
         <router-link v-else :to="{name: 'ArticleCreate', params: {productId}}">Добавить статью</router-link>
-        <div v-if="!isFetching && articles">
+        <div v-if="!isFetching && articles.length !== 0">
             <table>
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Содержимое</th>
                     <th>Дата создания</th>
                     <th v-if="!productId">Продукт</th>
                     <th/>
@@ -21,13 +20,12 @@
                     <td>
                         <router-link :to="{name: 'ArticleDetails', params: {articleId: article.id}}">{{article.title}}</router-link>
                     </td>
-                    <td>{{article.content}}</td>
                     <td>{{article.creationDate}}</td>
                     <td v-if="!productId">
                         <router-link :to="{name: 'ProductDetails', params: {productId: article.product.id}}">{{article.product.title}}</router-link>
                     </td>
                     <td>
-                        <router-link :to="{name: 'ArticleUpdate', params: {articleId: article.id}}">Редактировать</router-link>
+                        <router-link tag="button" :to="{name: 'ArticleUpdate', params: {articleId: article.id}}">Редактировать</router-link>
                     </td>
                     <td>
                         <button @click="remove(article.id)">Удалить</button>
