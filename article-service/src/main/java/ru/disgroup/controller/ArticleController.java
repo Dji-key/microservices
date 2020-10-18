@@ -18,14 +18,22 @@ import ru.disgroup.service.ArticleService;
 
 import java.util.List;
 
-import static ru.disgroup.feign.ArticleFeignClient.*;
+import static ru.disgroup.feign.ArticleFeignClient.ADD_BY_PRODUCT_ID;
+import static ru.disgroup.feign.ArticleFeignClient.ARTICLE_ID;
+import static ru.disgroup.feign.ArticleFeignClient.DELETE_BY_ID;
+import static ru.disgroup.feign.ArticleFeignClient.DELETE_BY_PRODUCT_ID;
+import static ru.disgroup.feign.ArticleFeignClient.FETCH_PRODUCT;
+import static ru.disgroup.feign.ArticleFeignClient.GET_BY_ID;
+import static ru.disgroup.feign.ArticleFeignClient.GET_BY_PRODUCT_ID;
+import static ru.disgroup.feign.ArticleFeignClient.PATH;
+import static ru.disgroup.feign.ArticleFeignClient.PRODUCT_ID;
+import static ru.disgroup.feign.ArticleFeignClient.UPDATE_BY_PRODUCT_ID;
 
 /**
  * Имплементация {@link ru.disgroup.feign.ArticleFeignClient}
  */
 @RestController
 @RequestMapping(PATH)
-@CrossOrigin(origins = "http://localhost:8084")
 public class ArticleController {
 
     private ArticleService articleService;

@@ -35,6 +35,5 @@ public class ArticleApplication {
         data.add(new Article().setTitle("Second").setContent("Article of second product").setProductId(2L));
         data.add(new Article().setTitle("First").setContent("Article of third product").setProductId(3L));
         articleRepository.saveAll(data);
-
     }
 }

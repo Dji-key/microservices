@@ -1,16 +1,23 @@
 <template>
-    <div>
-        <label>Название</label>
-        <input type="text" v-model="article.title">
+    <div v-if="article">
+        <div>
+            <label>Название</label>
+            <input type="text" v-model="article.title">
+        </div>
 
-        <label>Содержимое</label>
-        <textarea v-model="article.title"></textarea>
+        <div>
+            <label>Содержимое</label>
+            <textarea v-model="article.content"></textarea>
+        </div>
 
-        <label>Продукт</label>
-        <select v-model="article.product">
-            <option v-if="!articleId" :value="null" selected></option>
-            <option :value="article.product.title" v-for="product in products">{{product.title}}</option>
-        </select>
+        <div>
+            <label>Продукт</label>
+            <select v-model="article.product">
+                <option v-if="article.product" :value="null" selected></option>
+                <option v-for="product in products" :value="article.product && product.id === article.product.id ? article.product : product">{{product.title}}</option>
+            </select>
+        </div>
+        <button @click="save">Сохранить</button>
     </div>
 </template>
 
@@ -36,6 +43,7 @@
         public article: IArticle = {};
         public products: IProduct[] = [];
         private isFetching: boolean = false;
+        private isSaving: boolean = false;
 
         public mounted(): void {
             this.isFetching = true;
@@ -57,6 +65,30 @@
                 }
             );
             this.isFetching = false
+        }
+
+        public save() : void {
+            this.isSaving = true;
+            if (this.article.id) {
+                this.articleService()
+                    .update(this.article)
+                    .then(
+                        res => {
+                            this.isSaving = false;
+                            this.$router.go(-1);
+                        }
+                    )
+            } else {
+                this.articleService()
+                    .create(this.article)
+                    .then(
+                        res => {
+                            this.isSaving = false;
+                            this.$router.go(-1);
+                        }
+                    )
+            }
+            this.isSaving = false;
         }
     }
 </script>

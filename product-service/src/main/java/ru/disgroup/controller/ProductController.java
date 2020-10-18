@@ -2,7 +2,6 @@ package ru.disgroup.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +17,17 @@ import ru.disgroup.service.ProductService;
 
 import java.util.List;
 
-import static ru.disgroup.feign.ProductFeignClient.*;
+import static ru.disgroup.feign.ProductFeignClient.DELETE_BY_ID;
+import static ru.disgroup.feign.ProductFeignClient.FETCH_ARTICLES;
+import static ru.disgroup.feign.ProductFeignClient.GET_BY_ID;
+import static ru.disgroup.feign.ProductFeignClient.PATH;
+import static ru.disgroup.feign.ProductFeignClient.PRODUCT_ID;
 
 /**
  * Имплементация {@link ru.disgroup.feign.ProductFeignClient}
  */
 @RestController
 @RequestMapping(PATH)
-@CrossOrigin(origins = "http://localhost:8084")
 public class ProductController {
 
     private ProductService productService;
