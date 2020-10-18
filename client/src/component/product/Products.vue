@@ -19,9 +19,14 @@
                     <td>{{product.description}}</td>
                     <td>{{product.cost}}</td>
                     <td>
-                        <p v-for="article in product.articles">
-                            <router-link :to="{name: 'ArticleDetails', params: {articleId: article.id}}">{{article.title}}</router-link>
-                        </p>
+                        <div v-if="product.articles.length !== 0">
+                            <p v-for="article in product.articles">
+                                <router-link :to="{name: 'ArticleDetails', params: {articleId: article.id}}">{{article.title}}</router-link>
+                            </p>
+                        </div>
+                        <div v-else>
+                            Отсутствуют
+                        </div>
                     </td>
                 </tr>
                 </tbody>

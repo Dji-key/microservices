@@ -85,12 +85,25 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
+    public ArticleDto save(ArticleDto articleDto) {
+        ProductDto foundProductDto = productFeignClient.getById(articleDto.getProduct().getId(), false);
+        ArticleDto savedArticleDto = plainSave(articleDto, articleDto.getProduct().getId());
+        return savedArticleDto.setProduct(foundProductDto);
+    }
+
+    @Override
+    @Transactional
     public ArticleDto saveByProductId(Long productId, ArticleDto articleDto) {
         ProductDto foundProductDto = productFeignClient.getById(productId, false);
-        Article articleToSave = mapper.map(articleDto, Article.class);
-        Article savedArticle = articleDao.save(articleToSave.setProductId(foundProductDto.getId()));
-        ArticleDto savedArticleDto = mapper.map(savedArticle, ArticleDto.class);
+        ArticleDto savedArticleDto = plainSave(articleDto, productId);
         return savedArticleDto.setProduct(foundProductDto);
+    }
+
+    private ArticleDto plainSave(ArticleDto articleDto, Long productId) {
+        Article articleToSave = mapper.map(articleDto, Article.class);
+        articleToSave.setProductId(productId);
+        Article savedArticle = articleDao.save(articleToSave.setProductId(productId));
+        return mapper.map(savedArticle, ArticleDto.class);
     }
 
     @Override

@@ -2,6 +2,7 @@
     <div class="table">
         <h1 v-if="!productId">Все статьи</h1>
         <h1 v-else>Статьи продукта</h1>
+        <router-link :to="{name: 'ArticleCreate'}">Создать статью</router-link>
         <div v-if="!isFetching && articles">
             <table>
                 <thead>
@@ -28,7 +29,7 @@
                         <router-link :to="{name: 'ArticleUpdate', params: {articleId: article.id}}">Редактировать</router-link>
                     </td>
                     <td>
-                        Удалить
+                        <button @click="remove(article.id)">Удалить</button>
                     </td>
                 </tr>
                 </tbody>
@@ -55,15 +56,19 @@
         private isFetching: boolean = false;
 
         public mounted(): void {
+            this.retrieveAll();
+        }
+
+        public retrieveAll(): void {
             this.isFetching = true;
             if (this.productId) {
                 this.articleService()
-                .findByProductId(this.productId, false)
-                .then(
-                    res => {
-                        this.articles = res.data;
-                    }
-                )
+                    .findByProductId(this.productId, false)
+                    .then(
+                        res => {
+                            this.articles = res.data;
+                        }
+                    )
             } else {
                 this.articleService()
                     .retrieve(true)
@@ -76,15 +81,15 @@
             }
             this.isFetching = false;
         }
+
+        public remove(id: number): void {
+            this.articleService()
+                .delete(id)
+                .then(
+                    res => {
+                        this.retrieveAll();
+                    }
+                )
+        }
     }
 </script>
-
-<style>
-    #table {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-    }
-</style>

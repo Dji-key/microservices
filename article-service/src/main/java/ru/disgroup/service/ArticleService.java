@@ -14,6 +14,8 @@ public interface ArticleService {
 
     ArticleDto findById(Long id, Boolean fetchProduct);
 
+    ArticleDto save(ArticleDto articleDto);
+
     ArticleDto saveByProductId(Long productId, ArticleDto articleDto);
 
     ArticleDto updateByProductId(Long productId, ArticleDto articleDto);

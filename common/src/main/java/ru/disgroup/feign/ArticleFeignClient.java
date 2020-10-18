@@ -37,6 +37,9 @@ public interface ArticleFeignClient {
     ArticleDto getById(@PathVariable(ARTICLE_ID) Long id,
                        @RequestParam(value = FETCH_PRODUCT, required = false, defaultValue = "false") Boolean fetchProduct);
 
+    @PostMapping(PATH)
+    ArticleDto create(@RequestBody ArticleDto articleDto);
+
     @PutMapping(PATH)
     ArticleDto updateById(@RequestBody ArticleDto articleDto);
 

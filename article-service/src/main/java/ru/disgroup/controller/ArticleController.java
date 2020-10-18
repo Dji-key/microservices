@@ -56,6 +56,11 @@ public class ArticleController {
         return articleService.findById(id, fetchProduct);
     }
 
+    @PostMapping
+    ArticleDto create(@RequestBody ArticleDto articleDto) {
+        return articleService.save(articleDto);
+    }
+
     @PutMapping
     ArticleDto updateById(@RequestBody ArticleDto articleDto) {
         return articleService.update(articleDto);
